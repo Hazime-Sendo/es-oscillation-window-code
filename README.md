@@ -52,15 +52,16 @@ verification/
                             src/, scripts/, and data/, and prints a
                             clear PASS/FAIL line for each.
   README.md                 What each check does and how to run them
-requirements.txt            Dependency list (numpy, scipy; matplotlib
-                            only for scripts/make_paper_figures.py)
+requirements.txt            Dependency list (numpy, scipy, matplotlib —
+                            see "Environment" below for why matplotlib
+                            is needed even though no plot is produced)
 ```
 
 ## Quick start — verifying the paper's claims
 
 ```
 pip install -r requirements.txt
-python3 verification/run_verification.py              # all checks (~30s)
+python3 verification/run_verification.py              # all checks (under 10s)
 python3 verification/run_verification.py --skip-energy # fast checks only (<1s)
 ```
 
@@ -76,9 +77,17 @@ file and how to reproduce every table in the paper from scratch.
 Python 3.11 (verified at deposit time: 3.11.15). See
 [`requirements.txt`](requirements.txt) for the exact package list and
 the versions verified at deposit time (NumPy 2.4.4, SciPy 1.17.1,
-Matplotlib 3.10.9 — the last of these only needed for
-`scripts/make_paper_figures.py`, which is not required to reproduce any
-number quoted in the paper). A single CPU is sufficient.
+Matplotlib 3.10.9). Matplotlib is used directly only by
+`scripts/make_paper_figures.py`, but it is also an indirect dependency
+of `verification/run_verification.py`'s check 3b: that check imports
+`scripts/es_window_energy.py`, which imports
+`src/es_shock_analysis_integrated.py`, which imports `matplotlib` at
+module level for its own (unrelated) figure-generation code — so the
+import executes even though check 3b never calls it. Without
+matplotlib installed, check 3b fails to import and is reported as a
+FAIL rather than silently skipped;
+`verification/run_verification.py --skip-energy` avoids this
+dependency entirely by skipping check 3b. A single CPU is sufficient.
 
 Most scripts in `scripts/` accept `--b`, `--delta`, `--B3`, `--B4`,
 `--B5`, `--lam-loss` command-line flags and/or an
@@ -111,3 +120,4 @@ A `CITATION.cff` file is included for citing this code; author and DOI
 metadata will be finalized once the Zenodo record is minted. For
 citing the paper itself, use the `CITATION.cff` in the companion paper
 repository.
+
