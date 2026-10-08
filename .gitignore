@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.aux
+*.out
+*.log
+!results/default_analysis_log.txt
