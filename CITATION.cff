@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this code, data, or verification suite, please cite the paper it supports (see the companion paper repository's CITATION.cff) as well as this software record."
+title: >-
+  Code and verification suite for: Onset of a finite-amplitude
+  oscillation window at the disappearance of a regime-switching cycle
+  in a seven-variable economic model
+type: software
+authors:
+  - given-names: Hazime
+    family-names: Sendo
+    affiliation: Independent researcher (unaffiliated)
+  - given-names: Ken
+    family-names: Yumoto
+    affiliation: Submission agent / corresponding contact
+version: "0.1.0-preprint"
+date-released: "2026-10-03"
+repository-code: ""
+license: "Apache-2.0"
+# NOTE: DOI and final author ordering/affiliations to be completed once
+# the Zenodo record is minted and prior to formal journal submission.
+# Link the companion paper repository here once both are published.

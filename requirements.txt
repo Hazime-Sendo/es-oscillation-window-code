@@ -1,0 +1,19 @@
+# Dependencies for the ES oscillation-window study (Physica A submission).
+#
+# Required for everything under src/, scripts/, and verification/:
+numpy>=2.0
+scipy>=1.14
+
+# Required to run verification/run_verification.py's check 3b (and to run
+# scripts/make_paper_figures.py): check 3b imports scripts/es_window_energy.py,
+# which imports src/es_shock_analysis_integrated.py, which imports matplotlib
+# at module level (it is used for that module's own figure-generation code,
+# which check 3b never calls, but the import still executes). Without
+# matplotlib installed, check 3b fails to import and is recorded as a FAIL,
+# not silently skipped; `run_verification.py --skip-energy` avoids this
+# dependency entirely by skipping check 3b (checks 1, 2, 3a, 4 only).
+matplotlib>=3.9
+
+# Verified at deposit time (2026-10) with:
+#   numpy==2.4.4  scipy==1.17.1  matplotlib==3.10.9
+# on Python 3.11.
